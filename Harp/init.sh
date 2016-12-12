@@ -18,6 +18,7 @@ clear
 
 # Start of script
 echo -n "Hello, "$USER". This script will create a default Harp project. \n"
+sleep 2
 read -p "Do you want to proceed? (Y/n) " RESP
 if [ "$RESP" = "$DEFAULT_ANSWER" ]; then
 
@@ -27,38 +28,30 @@ touch harp.json
 # This creates a folder for the development of the project
 echo -n "Creating the folder structure\n"
 mkdir public
-
-# Change to the PUBLIC directory
-cd public
-
-# This creates the required directory structure
-mkdir _includes
-mkdir css
-mkdir img
-mkdir js
+mkdir public/_includes
+mkdir public/css
+mkdir public/img
+mkdir public/js
 
 # This creates the partial files
-cd _includes
-touch head.ejs
-touch nav.ejs
-touch footer.ejs
-
-# Return to PUBLIC Directory
-cd ../
+touch public/_includes/head.ejs
+touch public/_includes/nav.ejs
+touch public/_includes/footer.ejs
 
 # This creates the base files that are required
-touch 404.ejs
-touch index.ejs
+touch public/404.ejs
+touch public/index.ejs
 
+sleep 2
 
 read -p "Do you need a CSS framework? (Y/n) " RESP
 	if [ "$RESP" = "$DEAULT_ANSWER" ]; then
 		read -p "Do you want to use Skeleton CSS (Y/n) " RESP 
 		if [ "$RESP" = "$DEFAULT_ANSWER" ]; then
+
 # This Downloads the CSS framework
-cd css
 echo -n "Downloading the CSS starter kit\n"
-wget -q "SKELETON_CSS" -O skeleton.css
+wget -q "SKELETON_CSS" -O public/css/skeleton.css
 			else
 				echo "#######################################"
 				echo "You need to manually install a CSS file"
@@ -67,9 +60,10 @@ wget -q "SKELETON_CSS" -O skeleton.css
 
 		read -p "Do you want to use Normalize CSS (Y/n) " RESP 
 		if [ "$RESP" = "$DEFAULT_ANSWER" ]; then
+
 # This downloads the master version of normailze.css
 echo -n "Downloading Normalize.css\n"
-wget -q "NORMALIZE_CSS" -O normalize.css
+wget -q "NORMALIZE_CSS" -O public/css/normalize.css
 			else
 				echo "#######################################"
 				echo "You need to manually install Normalize"
@@ -77,11 +71,6 @@ wget -q "NORMALIZE_CSS" -O normalize.css
 
 		fi
 fi
-# Return to PUBLIC directory
-cd ../
-
-# Return to ROOT directory
-cd ../
 
 # restore
 tput rmcup
